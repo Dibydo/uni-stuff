@@ -1,0 +1,126 @@
+(define (interpret program stack)
+  
+  (define (compare-logic-flag stack op)
+    (cond
+      ((eq? op '=) (if (= (car stack) (cadr stack)) (cons -1 (cddr stack)) (cons 0 (cddr stack))))
+      ((eq? op '>) (if (< (car stack) (cadr stack)) (cons -1 (cddr stack)) (cons 0 (cddr stack))))
+      ((eq? op '<) (if (> (car stack) (cadr stack)) (cons -1 (cddr stack)) (cons 0 (cddr stack))))
+      ((eq? op '=) (if (> (car stack) (cadr stack)) (cons -1 (cddr stack)) (cons 0 (cddr stack))))
+      ((eq? op 'and) (if (or (= (car stack) 0) (= (cadr stack) 0)) (cons 0 (cddr stack)) (cons -1 (cddr stack))))
+      ((eq? op 'or) (if (and (= (car stack) 0) (= (cadr stack) 0)) (cons 0 (cddr stack)) (cons -1 (cddr stack))))
+      ((eq? op 'not) (if (= (car stack) 0) (cons -1 (cadr stack)) (cons 0 (cadr stack))))))
+
+  (define (make-article pr cou stack r-stack vocab)
+    (let ((c-w (vector-ref pr cou)))
+      (if (eq? c-w 'end)
+          (main-p pr (+ 1 cou) stack r-stack vocab)
+          (make-article pr (+ 1 cou) stack r-stack vocab))))
+
+  (define (false-if-rec pr cou stack r-stack vocab mark)
+    (let ((c-w (vector-ref pr cou)))
+      (cond
+        ((eq? c-w 'if) (false-if-rec pr (+ 1 cou) stack r-stack vocab (cons 1 mark)))
+        ((eq? c-w 'endif) (if (= (length mark) 1)
+                              (false-if pr (+ 1 cou) stack r-stack vocab)
+                              (false-if-rec pr (+ 1 cou) sr r-stack vocab (cdr mark))))
+        (else (false-if-rec pr (+ 1 cou) stack r-stack vocab mark)))))
+
+  (define (false-if pr cou stack r-stack vocab)
+    (let ((c-w (vector-ref pr cou)))
+      (cond
+        ((eq? c-w 'if) (false-if-rec pr (+ 1 cou) stack r-stack vocab '(1)))
+        ((eq? c-w 'endif) (if (eq? (vector-ref pr (+ 1 cou)) 'else)
+                              (main-p pr (+ 2 cou) stack r-stack vocab)
+                              (main-p pr (+ 1 cou) stack r-stack vocab)))
+        (else (false-if pr (+ 1 cou) stack r-stack vocab)))))
+
+  (define (false-while pr cou stack r-stack vocab)
+    (let ((c-w (vector-ref pr cou)))
+      (if (eq? c-w 'end-while)
+          (main-p pr (+ 1 cou) stack r-stack vocab)
+          (false-while pr (+ 1 cou) stack r-stack vocab))))
+
+  (define (skip-else pr cou stack r-stack vocab)
+    (let ((c-w (vector-ref pr cou)))
+      (if (eq? c-w 'end-else)
+          (main-p pr (+ 1 cou) stack r-stack vocab)
+          (skip-else pr (+ 1 cou) stack r-stack vocab))))
+
+  (define (break pr cou stack r-stack vocab)
+    (let ((c-w (vector-ref pr cou)))
+      (cond
+        ((or (eq? c-w 'end-while) (eq? c-w 'end-repeat)) (main-p pr (+ 1 cou) stack r-stack vocab))
+        ((eq? c-w 'loop) (main-p pr (+ 1 cou) stack r-stack (cddr vocab)))
+        (else (break pr (+ 1 cou) stack r-stack vocab)))))
+
+  (define (continue pr cou stack r-stack vocab)
+    (let ((c-w (vector-ref pr cou)))
+      (cond
+        ((or (eq? c-w 'end-while) (eq? c-w 'end-repeat)) (main-p pr (car r-stack) stack (cdr r-stack) vocab))
+        ((eq? c-w 'loop) (main-p pr (car r-stack) (cdr stack) (cdr r-stack) (cons (+ (car vocab) (car stack)) (cdr vocab))))
+        (else (continue pr (+ 1 cou) stack r-stack vocab)))))
+
+  (define (switch pr cou stack r-stack vocab key)
+    (let ((c-w (vector-ref pr cou)))
+      (cond
+        ((eq? c-w 'case) (if (= (vector-ref pr (+ 1 cou)) key)
+                             (main-p pr (+ 2 cou) stack r-stack vocab)
+                             (switch pr (+ 1 cou) stack r-stack vocab)))
+        ((eq? c-w 'end-switch) (main-p pr (+ 1 cou) stack (cdr r-stack) vocab))
+        (else (switch pr (+ 1 cou) stack r-stack vocab)))))
+
+  (define (find-sw pr cou)
+    (let ((c-w (vector-ref pr cou)))
+      (if (eq? c-w 'end-switch)
+          (+ 1 cou)
+          (find-sw pr (+ 1 cou)))))
+
+  (define (main-p pr cou stack r-stack vocab)
+    (if (>= cou (vector-length pr))
+        stack
+        (let ((c-w (vector-ref pr cou)))
+          (cond
+            ((number? c-w) (main-p pr (+ 1 cou) (cons c-w stack) r-stack vocab))
+            ((eq? c-w '+) (main-p pr (+ 1 cou) (cons (+ (car stack) (cadr stack)) (cddr stack)) r-stack vocab))
+            ((eq? c-w '-) (main-p pr (+ 1 cou) (cons (- (cadr stack) (car stack)) (cddr stack)) r-stack vocab))
+            ((eq? c-w '*) (main-p pr (+ 1 cou) (cons (* (cadr stack) (car stack)) (cddr stack)) r-stack vocab))
+            ((eq? c-w '/) (main-p pr (+ 1 cou) (cons (quotient (cadr stack) (car stack)) (cddr stack)) r-stack vocab))
+            ((eq? c-w 'mod) (main-p pr (+ 1 cou) (cons (remainder (cadr stack) (car stack)) (cddr stack)) r-stack vocab))
+            ((eq? c-w 'neg) (main-p pr (+ 1 cou) (cons (* -1 (car stack)) (cdr stack)) r-stack vocab))
+            ((or (eq? c-w '=) (eq? c-w '>) (eq? c-w '<) (eq? c-w 'and) (eq? c-w 'or) (eq? c-w 'not)) (main-p pr (+ 1 cou) (compare-logic-flag stack c-w) r-stack vocab))
+            ((eq? c-w 'drop) (main-p pr (+ 1 cou) (cdr stack) r-stack vocab))
+            ((eq? c-w 'swap) (main-p pr (+ 1 cou) (cons (cadr stack) (cons (car stack) (cddr stack))) r-stack vocab))
+            ((eq? c-w 'dup) (main-p pr (+ 1 cou) (cons (car stack) stack) r-stack vocab))
+            ((eq? c-w 'over) (main-p pr (+ 1 cou) (cons (cadr stack) stack) r-stack vocab))
+            ((eq? c-w 'rot) (main-p pr (+ 1 cou) (cons (caddr stack) (cons (cadr stack) (cons (car stack) (cdddr stack)))) r-stack vocab))
+            ((eq? c-w 'depth) (main-p pr (+ 1 cou) (cons (length stack) stack) r-stack vocab))
+            ((eq? c-w 'define) (make-article pr (+ 1 cou) stack r-stack (append vocab (list (list (vector-ref pr (+ 1 cou)) (+ 2 cou))))))
+            ((or (eq? c-w 'end) (eq? c-w 'exit)) (main-p pr (car r-stack) stack (cdr r-stack) vocab))
+            ((eq? c-w 'if) (if (= (car stack) 0)
+                               (false-if pr (+ 1 cou) (cdr stack) r-stack vocab)
+                               (main-p pr (+ 1 cou) (cdr stack) r-stack vocab)))
+            ((eq? c-w 'endif) (main-p pr (+ 1 cou) stack r-stack vocab))
+            ((eq? c-w 'while) (if (= (car stack) 0)
+                                  (false-while pr (+ 1 cou) (cdr stack) r-stack vocab)
+                                  (main-p pr (+ 1 cou) (cdr stack) (cons cou r-stack) vocab)))
+            ((eq? c-w 'end-while) (main-p pr (car r-stack) stack (cdr r-stack) vocab))
+            ((eq? c-w 'repeat) (main-p pr (+ 1 cou) stack (cons cou r-stack) vocab))
+            ((eq? c-w 'end-repeat) (if (= (car stack) 0)
+                                       (main-p pr (+ 1 cou) (cdr stack) (cdr r-stack) vocab)
+                                       (main-p pr (car r-stack) (cdr stack) (cdr r-stack) vocab)))
+            ((eq? c-w 'do) (main-p pr (+ 1 cou) (cddr stack) (cons (+ 1 cou) r-stack) (cons (car stack) (cons (cadr stack) vocab))))
+            ((eq? c-w 'loop) (if (> (+ (car vocab) (car stack)) (cadr vocab))
+                                 (main-p pr (+ 1 cou) (cdr stack) (cdr r-stack) (cddr vocab))
+                                 (main-p pr (car r-stack) (cdr stack) r-stack (cons (+ (car vocab) (car stack)) (cdr vocab)))))
+            ((eq? c-w 'else) (skip-else pr (+ 1 cou) stack r-stack vocab))
+            ((eq? c-w 'end-else) (main-p pr (+ 1 cou) stack r-stack vocab))
+            ((eq? c-w 'break) (break pr (+ 1 cou) stack (cdr r-stack) vocab))
+            ((eq? c-w 'continue) (continue pr (+ 1 cou) stack r-stack vocab))
+            ((eq? c-w 'switch) (switch pr (+ 1 cou) (cdr stack) (cons (find-sw pr cou) r-stack) vocab (car stack)))
+            (else (main-p pr (cadr (assoc (list c-w) (list vocab))) stack (cons (+ 1 cou) r-stack) vocab))))))
+  (main-p program 0 stack '() '()))
+
+;ТЕСТЫ
+
+
+
