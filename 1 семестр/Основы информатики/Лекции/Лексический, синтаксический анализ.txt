@@ -1,0 +1,107 @@
+схим лекция 3.12.20
+
+...
+
+Практические советы:
+
+1) В конец списка символов, которые потребляет лексический анализатор, в конец списка токенов, которые потребляеет синт. анализатор, нужно обязательно добавлять признак конца ввода(EOF, end-of-file)
+
+2) На практике язык разделяют на два "слоя": лексику и синтаксис. Лексика языка определяет набор "слов", лексем, на которые бьется программа, по лексемам создаются токены, которые группируются в синтаксическое дерево. ...
+
+3) Удобно определить тип "поток", как описано выше.
+
+4) Для прерывания разбора при ошибке рекомендуется использовать продолжение.
+
+Лексический анализ
+------------------
+
+Грамматика для стадии лексич. анализа описывается, как правило, без рекурсии(без хвостовой рекурсии), т.к. лексическая структура языка не требует вложенных конструкций.
+
+Назначение лексич. анализа: разбивает исходный текст на посл. токенов, которые синт. анализ будет группировать в дерево. Либо, если исходный текст не соотв. грамматике - выдача сообщения об ошибке.
+
+Входные данные: строка символов (или список символов), выходные: последовательность токенов. Можно сказать, что дерево разбора для грамматики лексем вырожденное - рекурсия есть только по правой ветке(cdr).
+
+Мы будем его реализовывать методом рекурсивного списка.
+
+Синтаксический анализ
+---------------------
+
+Его грамматика как правило описывается уже с использованием рекурсии, дерево разбора рекурсивное.
+
+Назначение: построение синт. дерева из списка токенов. Либо выдача сообщения об ошибке.
+
+Входные данные: список токенов, выходные: дерево разбора (или синт. дерево).
+
+Дерево разбора - деревоЮ построенное для данной грамматики...
+
+В Рекете:
+
+(load "stream.scm")
+
+; Подмножество языка Scheme
+; <sequence> ::= <term> <sequence> | <empty>
+; <empty> ::=
+; <term> ::= <define> | <expr>
+; <define> ::= (DEFINE VAR <expr>)
+; <expr> ::= VAR | (<complex-const>)
+; <lambda> ::= (LAMBDA <varlist> <sequence>)
+; <call> ::= (<expr> <exprs>)
+; <exprs> ::= <empty> | <expr> <exprs>
+;
+; Лексика:
+; <tokens> ::= <token> <tokens>
+;				| <spaces> <tokens>
+;				| <empty>
+; <spaces> ::= SPACE <spaces> | <empty>
+; <token> ::= "DEFINE" | "LAMBDA" | "(" | ")" | <variable>
+; <variable> ::= LETTER <variable-tail>
+; <variable-tail> ::= <empty>
+;					| LETTER <variable-tail>
+;					| DIGIT <variable-tail>
+
+(define (scan str)
+	(define stream
+		(make-stream (string->list str)))
+
+	(call-with-current-continuation
+		(lambda (error)
+			(tokens stream error)))
+	(equal? (peek stream) #f))
+
+; <tokens> ::= <spaces> <tokens>
+;			| <token> <tokens>
+			| <empty>
+(define (tokens stream error)
+	(define (start-token? char)
+		(or (char-letter? char)
+			(char-digit? char)
+			(equal? char #\()
+			(equal? char #\)))))
+	(cond ((char-whitespace? (peek stream))
+			(spaces stream error)
+			(tokens stream error))
+			(else #t)))
+
+; <spaces> ::= SPACE <spaces> | <empty>
+(define (spaces stream error)
+	(cond ((char-whitespace? (peek stream))
+		;(if (char-whitespace? (peek stream))
+		;	(next stream)
+		;	(error #t))
+		(next stream))
+		(else #t)))
+
+; <token> ::= "(" | ")" | <variable-or-keyword>
+(define (token stream error)
+	(cond ((equal? (peek stream) #\() (next))
+			((equal? (peek stream) #\)) (next))
+			((char-letter? (peek stream))
+			 (variable-or-keyword stream error))
+			 (else (error #f))))
+
+; <variable-or-keyword> ::= LETTER <variable-tail>
+(define (variable-or-keyword stream error)
+	(cond
+Рекет кончился
+
+саня саня хуй соси

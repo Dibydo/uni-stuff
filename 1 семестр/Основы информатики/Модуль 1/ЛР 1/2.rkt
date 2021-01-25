@@ -1,0 +1,6 @@
+(define (my-odd? x)
+  (or (= (remainder x 2) 1))
+  )
+(define (my-even? x)
+  (or (= (remainder x 2) 0))
+  )
