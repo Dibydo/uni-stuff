@@ -1,0 +1,263 @@
+
+;; Function test_gimple_cst (test_gimple_cst, funcdef_no=6, decl_uid=2948, cgraph_uid=7, symbol_order=6)
+
+test_gimple_cst ()
+{
+  int i;
+  int arr[5];
+  const int t;
+  int D.2986;
+  long int _1;
+  unsigned int i.0_2;
+  int _19;
+
+  <bb 2> :
+  _1 = time (0B);
+  t_7 = (const int) _1;
+  printf ("%d", t_7);
+  printf ("%f", 5.25e+0);
+  printf ("%f", 5.25e+0);
+  arr[0] = 1;
+  arr[1] = 2;
+  arr[2] = 3;
+  arr[3] = 4;
+  arr[4] = 5;
+  __builtin_putchar (91);
+  i_17 = 0;
+  goto <bb 4>; [INV]
+
+  <bb 3> :
+  printf ("%d ", i_3);
+  i_22 = i_3 + 1;
+
+  <bb 4> :
+  # i_3 = PHI <i_17(2), i_22(3)>
+  i.0_2 = (unsigned int) i_3;
+  if (i.0_2 <= 4)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  __builtin_putchar (93);
+  _19 = 0;
+  arr ={v} {CLOBBER};
+
+  <bb 6> :
+<L4>:
+  return _19;
+
+}
+
+
+
+;; Function test_gimple_arithm (test_gimple_arithm, funcdef_no=7, decl_uid=2956, cgraph_uid=8, symbol_order=7)
+
+test_gimple_arithm ()
+{
+  int g;
+  int f;
+  int e;
+  int d;
+  int c;
+  int b;
+  int a;
+  int D.2989;
+  int a.1_1;
+  int b.2_2;
+  int _3;
+  int c.3_4;
+  int _5;
+  int f.4_6;
+  int _7;
+  int d.5_8;
+  int e.6_9;
+  int _10;
+  int f.7_11;
+  int _12;
+  int _16;
+
+  <bb 2> :
+  scanf ("%d%d%d%d%d%d", &a, &b, &c, &d, &e, &f);
+  a.1_1 = a;
+  b.2_2 = b;
+  _3 = a.1_1 * b.2_2;
+  c.3_4 = c;
+  _5 = _3 / c.3_4;
+  f.4_6 = f;
+  _7 = _5 - f.4_6;
+  d.5_8 = d;
+  e.6_9 = e;
+  _10 = d.5_8 << e.6_9;
+  f.7_11 = f;
+  _12 = _10 | f.7_11;
+  g_15 = _7 ^ _12;
+  _16 = 0;
+  a ={v} {CLOBBER};
+  b ={v} {CLOBBER};
+  c ={v} {CLOBBER};
+  d ={v} {CLOBBER};
+  e ={v} {CLOBBER};
+  f ={v} {CLOBBER};
+
+  <bb 3> :
+<L1>:
+  return _16;
+
+}
+
+
+
+;; Function test_gimple_phi (test_gimple_phi, funcdef_no=8, decl_uid=2965, cgraph_uid=9, symbol_order=8)
+
+test_gimple_phi ()
+{
+  int z;
+  int y;
+  int x;
+  int w;
+  int D.2995;
+  int x.8_1;
+  int _2;
+  int x.9_3;
+  int x.10_4;
+  int x.11_5;
+  int x.12_6;
+  int x.13_7;
+  int x.14_8;
+  int _19;
+
+  <bb 2> :
+  scanf ("%d", &x);
+  x.8_1 = x;
+  _2 = x.8_1 + -3;
+  x = _2;
+  x.9_3 = x;
+  if (x.9_3 <= 2)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 4>; [INV]
+
+  <bb 3> :
+  x.10_4 = x;
+  y_14 = x.10_4 * 2;
+  w_15 = y_14;
+  goto <bb 5>; [INV]
+
+  <bb 4> :
+  x.11_5 = x;
+  y_13 = x.11_5 + -3;
+
+  <bb 5> :
+  # y_9 = PHI <y_14(3), y_13(4)>
+  x.12_6 = x;
+  w_16 = x.12_6 - y_9;
+  x.13_7 = x;
+  z_17 = y_9 + x.13_7;
+  x.14_8 = x;
+  printf ("w: %d, x: %d, y: %d, z: %d", w_16, x.14_8, y_9, z_17);
+  _19 = 0;
+  x ={v} {CLOBBER};
+
+  <bb 6> :
+<L4>:
+  return _19;
+
+}
+
+
+
+;; Function test_gimple_memory (test_gimple_memory, funcdef_no=9, decl_uid=2975, cgraph_uid=10, symbol_order=9)
+
+test_gimple_memory ()
+{
+  int i;
+  struct TEST_MEM * arr;
+  int n;
+  struct TEST_MEM * D.2998;
+  int n.15_1;
+  long unsigned int _2;
+  long unsigned int _3;
+  long unsigned int _4;
+  long unsigned int _5;
+  struct TEST_MEM * _6;
+  long unsigned int _7;
+  long unsigned int _8;
+  struct TEST_MEM * _9;
+  int _10;
+  int _11;
+  long unsigned int _12;
+  long unsigned int _13;
+  struct TEST_MEM * _14;
+  int _15;
+  int n.16_16;
+  struct TEST_MEM * _24;
+
+  <bb 2> :
+  scanf ("%d", &n);
+  n.15_1 = n;
+  _2 = (long unsigned int) n.15_1;
+  _3 = _2 * 12;
+  arr_22 = malloc (_3);
+  i_23 = 0;
+  goto <bb 4>; [INV]
+
+  <bb 3> :
+  _4 = (long unsigned int) i_17;
+  _5 = _4 * 12;
+  _6 = arr_22 + _5;
+  _6->a = i_17;
+  _7 = (long unsigned int) i_17;
+  _8 = _7 * 12;
+  _9 = arr_22 + _8;
+  _10 = i_17 * i_17;
+  _9->b = _10;
+  _11 = i_17 * i_17;
+  _12 = (long unsigned int) i_17;
+  _13 = _12 * 12;
+  _14 = arr_22 + _13;
+  _15 = i_17 * _11;
+  _14->c = _15;
+  i_29 = i_17 + 1;
+
+  <bb 4> :
+  # i_17 = PHI <i_23(2), i_29(3)>
+  n.16_16 = n;
+  if (i_17 < n.16_16)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  _24 = arr_22;
+  n ={v} {CLOBBER};
+
+  <bb 6> :
+<L4>:
+  return _24;
+
+}
+
+
+
+;; Function main (main, funcdef_no=10, decl_uid=2983, cgraph_uid=11, symbol_order=10)
+
+main ()
+{
+  int D.3001;
+  int _6;
+
+  <bb 2> :
+  test_gimple_cst ();
+  test_gimple_arithm ();
+  test_gimple_phi ();
+  test_gimple_memory ();
+  _6 = 0;
+
+  <bb 3> :
+<L0>:
+  return _6;
+
+}
+
+

@@ -1,0 +1,10 @@
+COMMENT ::= /\* .* \*/
+TERM    ::= "[a-z]"
+NTERM   ::= [A-Z]
+LPAREN  ::= \(
+RPAREN  ::= \)
+LFPAREN ::= \{
+RFPAREN ::= \}
+LSPAREN ::= \[
+RSPAREN ::= \]
+COMMA   ::= ,

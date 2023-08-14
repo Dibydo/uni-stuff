@@ -1,0 +1,4 @@
+enum DomainTag {
+    COORDS,
+    EOF
+}

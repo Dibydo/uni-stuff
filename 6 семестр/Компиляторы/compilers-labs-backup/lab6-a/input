@@ -1,0 +1,4 @@
+   'a'  '\n'  '\00ff' '\0009'
+   abcde  a00001b
+   12ae  012aaa
+   forabc   forward z  '\'' '\\' for

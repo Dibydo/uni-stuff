@@ -1,0 +1,6 @@
+Letter ::= все латинские буквы
+Digit ::= все цифры
+Ident ::= Letter (Letter | Digit)*
+Var_name_flatter ::= 's' | 't' | 'e'
+Var_name ::= Var_name_flatter Letter | Var_name_flatter Digit
+                                    | Var_name_flatter '.' (Letter | Digit)+

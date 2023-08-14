@@ -1,0 +1,268 @@
+digraph "test.c.019t.ssa" {
+overlap=false;
+subgraph "cluster_test_gimple_cst" {
+	style="dashed";
+	color="black";
+	label="test_gimple_cst ()";
+	subgraph cluster_6_1 {
+	style="filled";
+	color="darkgreen";
+	fillcolor="grey88";
+	label="loop 1";
+	labeljust=l;
+	penwidth=2;
+	fn_6_basic_block_4 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 4\>:\l\
+|#\ i_3\ =\ PHI\ \<i_17(2),\ i_22(3)\>\l\
+|i.0_2\ =\ (unsigned\ int)\ i_3;\l\
+|if\ (i.0_2\ \<=\ 4)\l\
+\ \ goto\ \<bb\ 3\>;\ [INV]\l\
+else\l\
+\ \ goto\ \<bb\ 5\>;\ [INV]\l\
+}"];
+
+	fn_6_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 3\>:\l\
+|printf\ (\"%d\ \",\ i_3);\l\
+|i_22\ =\ i_3\ +\ 1;\l\
+}"];
+
+	}
+	fn_6_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_6_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_6_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 2\>:\l\
+|_1\ =\ time\ (0B);\l\
+|t_7\ =\ (const\ int)\ _1;\l\
+|printf\ (\"%d\",\ t_7);\l\
+|printf\ (\"%f\",\ 5.25e+0);\l\
+|printf\ (\"%f\",\ 5.25e+0);\l\
+|arr[0]\ =\ 1;\l\
+|arr[1]\ =\ 2;\l\
+|arr[2]\ =\ 3;\l\
+|arr[3]\ =\ 4;\l\
+|arr[4]\ =\ 5;\l\
+|__builtin_putchar\ (91);\l\
+|i_17\ =\ 0;\l\
+goto\ \<bb\ 4\>;\ [INV]\l\
+}"];
+
+	fn_6_basic_block_5 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 5\>:\l\
+|__builtin_putchar\ (93);\l\
+|_19\ =\ 0;\l\
+|arr\ =\{v\}\ \{CLOBBER\};\l\
+}"];
+
+	fn_6_basic_block_6 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 6\>:\l\
+|\<L4\>:\l\
+|return\ _19;\l\
+}"];
+
+	fn_6_basic_block_0:s -> fn_6_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_6_basic_block_2:s -> fn_6_basic_block_4:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_6_basic_block_3:s -> fn_6_basic_block_4:n [style="dotted,bold",color=blue,weight=10,constraint=false];
+	fn_6_basic_block_4:s -> fn_6_basic_block_3:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_6_basic_block_4:s -> fn_6_basic_block_5:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_6_basic_block_5:s -> fn_6_basic_block_6:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_6_basic_block_6:s -> fn_6_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_6_basic_block_0:s -> fn_6_basic_block_1:n [style="invis",constraint=true];
+}
+subgraph "cluster_test_gimple_arithm" {
+	style="dashed";
+	color="black";
+	label="test_gimple_arithm ()";
+	fn_7_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_7_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_7_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 2\>:\l\
+|scanf\ (\"%d%d%d%d%d%d\",\ &a,\ &b,\ &c,\ &d,\ &e,\ &f);\l\
+|a.1_1\ =\ a;\l\
+|b.2_2\ =\ b;\l\
+|_3\ =\ a.1_1\ *\ b.2_2;\l\
+|c.3_4\ =\ c;\l\
+|_5\ =\ _3\ /\ c.3_4;\l\
+|f.4_6\ =\ f;\l\
+|_7\ =\ _5\ -\ f.4_6;\l\
+|d.5_8\ =\ d;\l\
+|e.6_9\ =\ e;\l\
+|_10\ =\ d.5_8\ \<\<\ e.6_9;\l\
+|f.7_11\ =\ f;\l\
+|_12\ =\ _10\ \|\ f.7_11;\l\
+|g_15\ =\ _7\ ^\ _12;\l\
+|_16\ =\ 0;\l\
+|a\ =\{v\}\ \{CLOBBER\};\l\
+|b\ =\{v\}\ \{CLOBBER\};\l\
+|c\ =\{v\}\ \{CLOBBER\};\l\
+|d\ =\{v\}\ \{CLOBBER\};\l\
+|e\ =\{v\}\ \{CLOBBER\};\l\
+|f\ =\{v\}\ \{CLOBBER\};\l\
+}"];
+
+	fn_7_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 3\>:\l\
+|\<L1\>:\l\
+|return\ _16;\l\
+}"];
+
+	fn_7_basic_block_0:s -> fn_7_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_7_basic_block_2:s -> fn_7_basic_block_3:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_7_basic_block_3:s -> fn_7_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_7_basic_block_0:s -> fn_7_basic_block_1:n [style="invis",constraint=true];
+}
+subgraph "cluster_test_gimple_phi" {
+	style="dashed";
+	color="black";
+	label="test_gimple_phi ()";
+	fn_8_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_8_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_8_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 2\>:\l\
+|scanf\ (\"%d\",\ &x);\l\
+|x.8_1\ =\ x;\l\
+|_2\ =\ x.8_1\ +\ -3;\l\
+|x\ =\ _2;\l\
+|x.9_3\ =\ x;\l\
+|if\ (x.9_3\ \<=\ 2)\l\
+\ \ goto\ \<bb\ 3\>;\ [INV]\l\
+else\l\
+\ \ goto\ \<bb\ 4\>;\ [INV]\l\
+}"];
+
+	fn_8_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 3\>:\l\
+|x.10_4\ =\ x;\l\
+|y_14\ =\ x.10_4\ *\ 2;\l\
+|w_15\ =\ y_14;\l\
+goto\ \<bb\ 5\>;\ [INV]\l\
+}"];
+
+	fn_8_basic_block_4 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 4\>:\l\
+|x.11_5\ =\ x;\l\
+|y_13\ =\ x.11_5\ +\ -3;\l\
+}"];
+
+	fn_8_basic_block_5 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 5\>:\l\
+|#\ y_9\ =\ PHI\ \<y_14(3),\ y_13(4)\>\l\
+|x.12_6\ =\ x;\l\
+|w_16\ =\ x.12_6\ -\ y_9;\l\
+|x.13_7\ =\ x;\l\
+|z_17\ =\ y_9\ +\ x.13_7;\l\
+|x.14_8\ =\ x;\l\
+|printf\ (\"w:\ %d,\ x:\ %d,\ y:\ %d,\ z:\ %d\",\ w_16,\ x.14_8,\ y_9,\ z_17);\l\
+|_19\ =\ 0;\l\
+|x\ =\{v\}\ \{CLOBBER\};\l\
+}"];
+
+	fn_8_basic_block_6 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 6\>:\l\
+|\<L4\>:\l\
+|return\ _19;\l\
+}"];
+
+	fn_8_basic_block_0:s -> fn_8_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_8_basic_block_2:s -> fn_8_basic_block_3:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_8_basic_block_2:s -> fn_8_basic_block_4:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_8_basic_block_3:s -> fn_8_basic_block_5:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_8_basic_block_4:s -> fn_8_basic_block_5:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_8_basic_block_5:s -> fn_8_basic_block_6:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_8_basic_block_6:s -> fn_8_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_8_basic_block_0:s -> fn_8_basic_block_1:n [style="invis",constraint=true];
+}
+subgraph "cluster_test_gimple_memory" {
+	style="dashed";
+	color="black";
+	label="test_gimple_memory ()";
+	subgraph cluster_9_1 {
+	style="filled";
+	color="darkgreen";
+	fillcolor="grey88";
+	label="loop 1";
+	labeljust=l;
+	penwidth=2;
+	fn_9_basic_block_4 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 4\>:\l\
+|#\ i_17\ =\ PHI\ \<i_23(2),\ i_29(3)\>\l\
+|n.16_16\ =\ n;\l\
+|if\ (i_17\ \<\ n.16_16)\l\
+\ \ goto\ \<bb\ 3\>;\ [INV]\l\
+else\l\
+\ \ goto\ \<bb\ 5\>;\ [INV]\l\
+}"];
+
+	fn_9_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 3\>:\l\
+|_4\ =\ (long\ unsigned\ int)\ i_17;\l\
+|_5\ =\ _4\ *\ 12;\l\
+|_6\ =\ arr_22\ +\ _5;\l\
+|_6-\>a\ =\ i_17;\l\
+|_7\ =\ (long\ unsigned\ int)\ i_17;\l\
+|_8\ =\ _7\ *\ 12;\l\
+|_9\ =\ arr_22\ +\ _8;\l\
+|_10\ =\ i_17\ *\ i_17;\l\
+|_9-\>b\ =\ _10;\l\
+|_11\ =\ i_17\ *\ i_17;\l\
+|_12\ =\ (long\ unsigned\ int)\ i_17;\l\
+|_13\ =\ _12\ *\ 12;\l\
+|_14\ =\ arr_22\ +\ _13;\l\
+|_15\ =\ i_17\ *\ _11;\l\
+|_14-\>c\ =\ _15;\l\
+|i_29\ =\ i_17\ +\ 1;\l\
+}"];
+
+	}
+	fn_9_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_9_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_9_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 2\>:\l\
+|scanf\ (\"%d\",\ &n);\l\
+|n.15_1\ =\ n;\l\
+|_2\ =\ (long\ unsigned\ int)\ n.15_1;\l\
+|_3\ =\ _2\ *\ 12;\l\
+|arr_22\ =\ malloc\ (_3);\l\
+|i_23\ =\ 0;\l\
+goto\ \<bb\ 4\>;\ [INV]\l\
+}"];
+
+	fn_9_basic_block_5 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 5\>:\l\
+|_24\ =\ arr_22;\l\
+|n\ =\{v\}\ \{CLOBBER\};\l\
+}"];
+
+	fn_9_basic_block_6 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 6\>:\l\
+|\<L4\>:\l\
+|return\ _24;\l\
+}"];
+
+	fn_9_basic_block_0:s -> fn_9_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_9_basic_block_2:s -> fn_9_basic_block_4:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_9_basic_block_3:s -> fn_9_basic_block_4:n [style="dotted,bold",color=blue,weight=10,constraint=false];
+	fn_9_basic_block_4:s -> fn_9_basic_block_3:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_9_basic_block_4:s -> fn_9_basic_block_5:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_9_basic_block_5:s -> fn_9_basic_block_6:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_9_basic_block_6:s -> fn_9_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_9_basic_block_0:s -> fn_9_basic_block_1:n [style="invis",constraint=true];
+}
+subgraph "cluster_main" {
+	style="dashed";
+	color="black";
+	label="main ()";
+	fn_10_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_10_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_10_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 2\>:\l\
+|test_gimple_cst\ ();\l\
+|test_gimple_arithm\ ();\l\
+|test_gimple_phi\ ();\l\
+|test_gimple_memory\ ();\l\
+|_6\ =\ 0;\l\
+}"];
+
+	fn_10_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{\<bb\ 3\>:\l\
+|\<L0\>:\l\
+|return\ _6;\l\
+}"];
+
+	fn_10_basic_block_0:s -> fn_10_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_10_basic_block_2:s -> fn_10_basic_block_3:n [style="solid,bold",color=blue,weight=100,constraint=true];
+	fn_10_basic_block_3:s -> fn_10_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true];
+	fn_10_basic_block_0:s -> fn_10_basic_block_1:n [style="invis",constraint=true];
+}
+}

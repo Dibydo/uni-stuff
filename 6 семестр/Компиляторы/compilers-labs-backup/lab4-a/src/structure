@@ -1,0 +1,5 @@
+Digit ::= все цифры
+Number ::= Digit\{0} Digit* | 0
+Angle ::= Digit | [1-5] Digit
+Fractional ::= . Digit+ | D (Angle ')? (Angle ")?
+Coords ::= [SENW] Number Fractional

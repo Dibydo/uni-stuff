@@ -1,0 +1,6 @@
+SPACE := (\s | \t | \n)+
+IDENT := [a-zA-Z][a-zA-Z0-9]*
+NUMBER := [0-9]+
+KEYWORD := new | delete
+OP := '=' | '(' | ')'
+STRING := -([^-]|--)*?-

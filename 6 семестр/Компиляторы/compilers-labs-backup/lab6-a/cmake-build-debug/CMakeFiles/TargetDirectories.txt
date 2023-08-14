@@ -1,0 +1,3 @@
+/home/kurilab/projects/compilers_labs/lab6-a/cmake-build-debug/CMakeFiles/untitled.dir
+/home/kurilab/projects/compilers_labs/lab6-a/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kurilab/projects/compilers_labs/lab6-a/cmake-build-debug/CMakeFiles/rebuild_cache.dir

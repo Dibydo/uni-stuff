@@ -1,0 +1,13 @@
+{
+int a=5;
+int b=10;
+int x=1;
+for(x=0;x<10;x++){
+int y=8;x=y;
+}
+if(a<3){a = 1;} else {
+b = 3;
+
+}
+
+}
